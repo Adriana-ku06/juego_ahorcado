@@ -1,126 +1,79 @@
 #include<stdio.h>
-#include<string.h>
+#include<math.h>
 #include<stdlib.h>
+#include <string.h>
+//Adriana Ku 
+/*ahorcado
+ejemplo de compilacion, usted puede meter n cantidad de palabras
+./main  carro casa moto
 
-//char guardar_palabra(){}
+*/
+char juego( int argc, char** argv){
+  
+int numero = rand() % argc; //elegimos una palabra del arreglo al azar
+//printf("%d",numero);
+int longi = strlen(argv[numero]);
+//printf("%d",longi);
+//printf("%s",argv[numero]);
+char palabra[20];
+char palabra2[20];
+ strcpy(palabra,argv[numero]);
+ //printf("%s",palabra);
+int intentos=0;
+int i=1;
+int j=1;
 
-//char comparar_palabra(){}
+while(intentos<6){ //comienza el juego
+  
+  ++intentos;
+      printf("Escribe una letra de la palabra \n");
+      char letra;
+        scanf(" %c", &letra);
 
-int main() {
-    char frase[60],rep[100],temporal[100];
-    char pal;
-    int longitud,i,j,inicial,acertado=0,temp=0,oportunidades=5;
-    int repetido=0,gano=0;
-   
-    printf("Juego del Ahorcado\n");
-    printf("Introdusca una palabra para el juego ");
-   gets("%s",frase);
-   
-    system("cls");
-   
-    longitud = 0;
-    inicial = 0;
-    j = 0;
-   
-    rep[0] = ' ';
-    rep[1] = '\0';
-   
-   
-    do {
-                system("cls");
-        temp=0;
-   
-        if(inicial == 0) {
-         for(i=0;i<strlen(frase);i++) {
-          if(frase[i] == ' ') {
-            temporal[i] = ' ';
-             longitud++;
+
+      for(j=0;j<strlen(argv[numero]);j++){
+         
+          if(letra==palabra[j]){
+            printf("usted  a adivinado tiene la letra %c \n",palabra[j]);
+           palabra2[j]=letra;
+        printf("%c \n",palabra2[j]);
+         
+
+
           }
-          else {
-             temporal[i] = '_';       
-             longitud++;
-          }
-         }
-        }
-   
-        inicial = 1;
+          
        
-        temporal[longitud] = '\0';
-       
-        for(i=0;i<strlen(rep);i++) {
-           if(rep[i] == pal) {
-            repetido = 1;
-            break;
-          }
-          else {
-           repetido = 0;
-         }
-        }
-       
-        if(repetido == 0) {
-         for(i=0;i<strlen(frase);i++) {
-                    if(frase[i] == pal) {
-             temporal[i] = pal;
-              acertado++;
-              temp=1;
-            }
-          }
-        }
-       
-        if(repetido == 0) {
-         if(temp == 0) {
-           oportunidades = oportunidades - 1;
-         }
-        }
-        else {
-         printf("Ya se ha introducido este caracter");
-         printf("\n\n");
-        }
-       
-        printf("\n");
-       
-        for(i=0;i<strlen(temporal);i++) {
-         printf(" %c ",temporal[i]);
-        }
-       
-        printf("\n");
-       
-        if(strcmp(frase,temporal) == 0) {
-            gano = 1;
-            break;
-        }
-       
-        printf("\n");
-        printf("Letras Acertadas: %d",acertado);
-        printf("\n");
-        printf("Oportunidades Restantes: %d",oportunidades);
-        printf("\n");
-   
-        rep[j] = pal;
-        j++;
-       
-        if (oportunidades==0)
-        {
-           break;
-        }
-     
-        printf("Introduzca una letra:");
-        scanf("\n%c",&pal);
+         
+
+      }
       
-    }while(oportunidades != 0);
-   
-   
-    if(gano) {
-                printf("\n\n");
-        printf("has ganado.");
-    }
-    else {
-                printf("\n\n");
-        printf("Has perdido.");
-    }
-   
-    printf("\n\n");
-    system("PAUSE");
-    return 0;
 
+       if( !memcmp( palabra2, palabra, sizeof( palabra2 ))){ //comprobamos que los dos arreglos sean iguales
+     printf( "LOGRO ADIVINAR LA PALABRA" ); 
+      printf( "la palabra es %s",palabra ); 
+     break;}
+     
+   
+
+     
+   }
+  if(intentos>6) { //cuando el intento llegue a 5 usted a perdido la partida
+     printf( "Usted ha perdido" );
+     
+      //printf("%c \n",letra);
+
+
+}
+
+ 
+
+
+
+  
+}
+
+
+int main(int  argc, char** argv){
+
+juego(argc,argv);
 }
